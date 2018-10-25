@@ -1,15 +1,31 @@
 # translit [![GoDoc](https://godoc.org/github.com/mxmCherry/translit?status.svg)](https://godoc.org/github.com/mxmCherry/translit) [![Build Status](https://travis-ci.org/mxmCherry/translit.svg?branch=master)](https://travis-ci.org/mxmCherry/translit) [![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit)
 Go (Golang) utilities for (mostly Cyrillic) transliteration
 
+# TODO
+
+For v1:
+
+- example for `uknational`, can be copied from [Приклади написання](http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF)
+- settle the API (see Guidelines section) - probably, better have `uknational.Converter()` instead of `uknational.Lookup()` - this may be better to keep the stable API if doing some custom tweaks like letter position handling?
+- fill all the TODOs in README
+- add Russian transliteration
+
+Nice to have (though may be too hard / impossible to make an abstract implementation):
+
+- nicer case-handling (like "UPPER" and "Title" cased transliterations - requires lookahead, check [dchest/translit.go](https://github.com/dchest/translit.go))
+- letter position handling (like `uknational`: has custom transliteration rules for first letter, like `я`: `ya` (first) or `ia` (not first))
+
 ## Features
 
-TODO: describe features / advantages / shortcomings of main converter implementation.
+TODO: describe features / advantages / shortcomings of main converter implementation. Also mention permissive license ('cause that's one of the main reasons for doing this lib).
 
 ## Usage
 
 TODO: copy some example here.
 
 ## Guidelines
+
+TODO: this is subject to change!
 
 This package aims to provide default transliterations for some languages.
 
@@ -34,7 +50,7 @@ func main() {
 }
 ```
 
-Code style:
+### Code style
 
 - [editorconfig](https://editorconfig.org/) (recommended)
 - [gofmt](https://blog.golang.org/go-fmt-your-code) (MUST)
@@ -42,4 +58,4 @@ Code style:
 
 ## Motivation
 
-TODO: describe existing analogs and explain why they are not perfect.
+TODO: describe existing analogs and explain why they are not perfect (don't forget license!).
