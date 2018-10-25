@@ -6,14 +6,13 @@ Go (Golang) utilities for (mostly Cyrillic) transliteration
 For v1:
 
 - example for `uknational`, can be copied from [Приклади написання](http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF)
-- settle the API (see Guidelines section) - probably, better have `uknational.Converter()` instead of `uknational.Lookup()` - this may be better to keep the stable API if doing some custom tweaks like letter position handling?
 - fill all the TODOs in README
 - add Russian transliteration
 
 Nice to have (though may be too hard / impossible to make an abstract implementation):
 
 - nicer case-handling (like "UPPER" and "Title" cased transliterations - requires lookahead, check [dchest/translit.go](https://github.com/dchest/translit.go))
-- letter position handling (like `uknational`: has custom transliteration rules for first letter, like `я`: `ya` (first) or `ia` (not first))
+- letter position handling for (at least) `uknational`: it has custom transliteration rules for first letter, like `я`: `ya` (first) or `ia` (not first) - may become a part of `internal/lookup.Lookup.Lookup(substr, posInWord)`
 
 ## Features
 
@@ -33,7 +32,7 @@ Subpackage names for these transliterations should be named as [ISO 639-1](https
 
 One package per language/standard recommendation is aiming reduce memory footprint: pay with memory only for what you actually use.
 
-These packages should have at least `func Lookup() translit.Lookup` default getter, so usage would look like:
+These packages should expose at least one `translit.Converter` (ideally - just one, again - for memory footprint). Function getters are recommended to expose converters (to avoid accidental variable reassigning).
 
 ```go
 package main
@@ -43,7 +42,7 @@ import (
 	"github.com/mxmCherry/translit/uknational"
 )
 
-var uk = translit.For(uknational.Lookup()) // global one
+var uk = uknational.Converter() // global one (package-local)
 
 func main() {
 	println(uk.Convert("Український трансліт"))

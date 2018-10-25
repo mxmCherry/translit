@@ -9,21 +9,6 @@ import (
 	"github.com/mxmCherry/translit/internal/lookup"
 )
 
-// Lookup represents transliteration rule lookup.
-// Case sensitivity (conversions like щ -> sch / Щ -> Sch / Щ -> SCH) may be solved as a part of lookup.
-//
-// TODO: add some case-handling wrappers for this.
-type Lookup interface {
-	Lookup(in string) (out *string, hasLongerMatch bool)
-}
-
-// Build builds case-sensitive transliteration rule lookup from string-to-string map.
-func Build(transliterations map[string]string) Lookup {
-	return lookup.FromMap(transliterations)
-}
-
-// ----------------------------------------------------------------------------
-
 // Converter represents transliteration converter.
 type Converter interface {
 	// Convert converts input string according to converter rules.
@@ -31,17 +16,19 @@ type Converter interface {
 	Convert(in string) (out string)
 }
 
-// For constructs case-sensitive converter from given transliteration map.
-func For(lookup Lookup) Converter {
+// New constructs case-sensitive converter from given transliteration map.
+//
+// TODO: OCD/naming woes: name it not New, but Build?..
+func New(transliterations map[string]string) Converter {
 	return converter{
-		lookup: lookup,
+		lookup: lookup.FromMap(transliterations),
 	}
 }
 
 // ----------------------------------------------------------------------------
 
 type converter struct {
-	lookup Lookup
+	lookup lookup.Lookup
 }
 
 func (c converter) Convert(s string) string {

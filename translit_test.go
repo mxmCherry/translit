@@ -12,12 +12,11 @@ var _ = Describe("Converter", func() {
 	var subject Converter
 
 	BeforeEach(func() {
-		lookup := Build(map[string]string{
+		subject = New(map[string]string{
 			"щ":  "sch",
 			"я":  "ya",
 			"ня": "nia",
 		})
-		subject = For(lookup)
 	})
 
 	DescribeTable(
