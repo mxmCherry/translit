@@ -40,5 +40,10 @@ var _ = Describe("Converter", func() {
 			"multi-char + included char",
 			"яняя", "yaniaya",
 		),
+
+		Entry(
+			"unknown chars left as-is",
+			"шщъ", "шschъ",
+		),
 	)
 })
