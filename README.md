@@ -63,7 +63,7 @@ func main() {
 
 At the moment of writing this lib, there were 3 analogs:
 
-[gen1us2k/go-translit](github.com/gen1us2k/go-translit) at [46f1a0b])https://github.com/gen1us2k/go-translit/commit/46f1a0be552caadbdbc19cf9a6705c4402b7ab47):
+[gen1us2k/go-translit](github.com/gen1us2k/go-translit) at [46f1a0b](https://github.com/gen1us2k/go-translit/commit/46f1a0be552caadbdbc19cf9a6705c4402b7ab47):
 
 - bad: only Latin -> Russian (depends on use case though)
 - minor: unable to reuse for other languages
