@@ -37,10 +37,7 @@ These packages should expose at least one `translit.Converter` (ideally - just o
 ```go
 package main
 
-import (
-	"github.com/mxmCherry/translit"
-	"github.com/mxmCherry/translit/uknational"
-)
+import "github.com/mxmCherry/translit/uknational"
 
 var uk = uknational.Converter() // global one (package-local)
 

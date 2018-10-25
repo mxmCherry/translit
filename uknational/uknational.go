@@ -17,7 +17,7 @@ func Converter() translit.Converter {
 var converter = translit.New(
 	map[string]string{
 		"А": "A",
-		"a": "a",
+		"а": "a",
 
 		"Б": "B",
 		"б": "b",
@@ -124,6 +124,12 @@ var converter = translit.New(
 		"Зг": "Zgh",
 		"ЗГ": "ZGH", // all-upper-case handling
 		"зг": "zgh",
+
+		// 2. М'який знак і апостроф латиницею не відтворюються.
+		"ь": "",
+		"Ь": "",
+		"’": "", // https://uk.wikipedia.org/wiki/%D0%90%D0%BF%D0%BE%D1%81%D1%82%D1%80%D0%BE%D1%84
+		"'": "", // https://uk.wikipedia.org/wiki/%D0%90%D0%BF%D0%BE%D1%81%D1%82%D1%80%D0%BE%D1%84
 	},
 )
 
