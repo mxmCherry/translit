@@ -11,7 +11,7 @@ For v1:
 
 Nice to have (though may be too hard / impossible to make an abstract implementation):
 
-- letter position handling for (at least) `uknational`: it has custom transliteration rules for first letter, like `я`: `ya` (first) or `ia` (not first) - may become a part of `internal/lookup.Lookup.Lookup(substr, posInWord)`
+- letter position handling for (at least) `uknational`: it has custom transliteration rules for first letter, like `я`: `ya` (first) or `ia` (not first) - may become a part of `internal/lookup.Lookup.Lookup(substr, posInWord)`; UPD: may be solved by having rules for each rule like `ая`, `бя`, `вя` etc - brutal, mem-intensive, but should work
 - nicer case-handling (like "UPPER" and "Title" cased transliterations - requires lookahead, check [dchest/translit.go](https://github.com/dchest/translit.go))
 
 ## Features

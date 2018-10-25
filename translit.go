@@ -33,41 +33,38 @@ type converter struct {
 
 func (c converter) Convert(s string) string {
 	in := strings.NewReader(s)
+	inProcessed := 0
 
-	var out strings.Builder
-
-	var cur struct {
-		buf   strings.Builder
-		first rune
-	}
-
+	var (
+		out strings.Builder
+		cur strings.Builder
+	)
 	var last struct {
 		tr     *string
 		curLen int
 	}
 	for {
-		r, _, err := in.ReadRune()
+		r, rSize, err := in.ReadRune()
 		if err == io.EOF {
 			break
 		}
-		if cur.buf.Len() == 0 {
-			cur.first = r
-		}
-		_, _ = cur.buf.WriteRune(r)
+		inProcessed += rSize
+		_, _ = cur.WriteRune(r)
 
-		tr, hasLongerMatch := c.lookup.Lookup(cur.buf.String())
+		tr, hasLongerMatch := c.lookup.Lookup(cur.String())
 
 		if tr != nil {
 			last.tr = tr
-			last.curLen = cur.buf.Len()
+			last.curLen = cur.Len()
 		}
 
-		if hasLongerMatch {
+		// TODO: check if this one is last rune in string - don't skip it then:
+		if hasLongerMatch { // && inProcessed < in.Len()
 			continue
 		}
 
 		if last.tr != nil {
-			if rewind := cur.buf.Len() - last.curLen; rewind > 0 {
+			if rewind := cur.Len() - last.curLen; rewind > 0 {
 				_, _ = in.Seek(-int64(rewind), io.SeekCurrent)
 			}
 
@@ -76,10 +73,10 @@ func (c converter) Convert(s string) string {
 			last.tr = nil
 			last.curLen = 0
 		} else {
-			_, _ = out.WriteString(cur.buf.String())
+			_, _ = out.WriteString(cur.String())
 		}
 
-		cur.buf.Reset()
+		cur.Reset()
 	}
 
 	return out.String()
