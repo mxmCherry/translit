@@ -5,6 +5,7 @@ Go (Golang) utilities for (mostly Cyrillic) transliteration
 
 For v1:
 
+- solve naming: probably, better not `uknational.Converter()`, but `uknational.Romanizer()` or so (just in case there will be latin-to-cyrillic converter at some point?)
 - fill all the TODOs in README
 - add Russian transliteration
 
