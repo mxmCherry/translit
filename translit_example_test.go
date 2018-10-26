@@ -14,13 +14,12 @@ func ExampleConverter() {
 		"Лещ": "Bream",
 	})
 
-	// TODO: WOW, the first example failed if letter is last letter in string!
-	fmt.Println(tr.Convert("Л - л"))                               // L - l
-	fmt.Println(tr.Convert("Лещ - лещ"))                           // Bream - bream
-	fmt.Println(tr.Convert("Не объявленные правиЛа игнорируются")) // Не объявlенные правиLа игнорируются
+	fmt.Println(tr.Convert("Л - л"))                                // L - l
+	fmt.Println(tr.Convert("Лещ - лещ - лЕщ"))                      // Bream - bream - lЕщ
+	fmt.Println(tr.Convert("Остальной текст не трансЛитерируется")) // Остаlьной текст не трансLитерируется
 
 	// Output:
 	// L - l
-	// Bream - bream
-	// Не объявlенные правиlа игнорируются
+	// Bream - bream - lЕщ
+	// Остаlьной текст не трансLитерируется
 }

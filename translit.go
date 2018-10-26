@@ -33,7 +33,6 @@ type converter struct {
 
 func (c converter) Convert(s string) string {
 	in := strings.NewReader(s)
-	inProcessed := 0
 
 	var (
 		out strings.Builder
@@ -44,11 +43,10 @@ func (c converter) Convert(s string) string {
 		curLen int
 	}
 	for {
-		r, rSize, err := in.ReadRune()
+		r, _, err := in.ReadRune()
 		if err == io.EOF {
 			break
 		}
-		inProcessed += rSize
 		_, _ = cur.WriteRune(r)
 
 		tr, hasLongerMatch := c.lookup.Lookup(cur.String())
@@ -58,8 +56,7 @@ func (c converter) Convert(s string) string {
 			last.curLen = cur.Len()
 		}
 
-		// TODO: check if this one is last rune in string - don't skip it then:
-		if hasLongerMatch { // && inProcessed < in.Len()
+		if hasLongerMatch && in.Len() > 0 {
 			continue
 		}
 
