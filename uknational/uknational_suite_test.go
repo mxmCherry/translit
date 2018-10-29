@@ -1,4 +1,4 @@
-package mapping_test
+package uknational_test
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestMapping(t *testing.T) {
+func TestUknational(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Mapping Suite")
+	RunSpecs(t, "Uknational Suite")
 }

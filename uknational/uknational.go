@@ -1,20 +1,23 @@
-// Package uknational provides Ukrainian romanization converter,
+// Package uknational provides Ukrainian romanization transform.Transformer,
 // as defined in http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
 //
-// TODO: letter position handling - this is impossible to do 100% correctly with current Converter implementation.
+// TODO: letter position handling - this is impossible to do 100% correctly with current implementation.
 package uknational
 
-import "github.com/mxmCherry/translit"
+import (
+	"github.com/mxmCherry/translit"
+	"golang.org/x/text/transform"
+)
 
-// Converter returns Ukrainian romanization converter,
+// ToLatin returns Ukrainian romanization transform.Transformer,
 // as defined in http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
 //
-// TODO: letter position handling - this is impossible to do 100% correctly with current Converter implementation.
-func Converter() translit.Converter {
-	return converter
+// TODO: letter position handling - this is impossible to do 100% correctly with current implementation.
+func ToLatin() transform.Transformer {
+	return toLatin
 }
 
-var converter = translit.New(
+var toLatin = translit.New(
 	map[string]string{
 		"А": "A",
 		"а": "a",
@@ -143,7 +146,7 @@ http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
 |             |          |            |українською |  латиницею  |
 |             |          |            |    мовою   |             |
 |-------------+----------+------------+------------+-------------|
-|      Аa     |    Aа    |            |Алушта      |Alushta      |
+|      Аа     |    Aа    |            |Алушта      |Alushta      |
 |             |          |            |Андрій      |Andrii       |
 |-------------+----------+------------+------------+-------------|
 |      Бб     |    Bb    |            |Борщагівка  |Borshchahivka|

@@ -1,11 +1,11 @@
-package mapping_test
+package transformer_test
 
 import (
 	"github.com/mxmCherry/translit/internal/tree"
 	"github.com/mxmCherry/translit/internal/tree/maptree"
 	"golang.org/x/text/transform"
 
-	. "github.com/mxmCherry/translit/internal/mapping"
+	. "github.com/mxmCherry/translit/internal/transformer"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/ginkgo/extensions/table"
@@ -20,7 +20,7 @@ var _ = Describe("Transformer", func() {
 		"C":   "{C}",
 		"ABC": "{ABC}",
 	})
-	subject := NewTransformer(mapping)
+	subject := New(mapping)
 
 	BeforeEach(func() {
 		subject.Reset()

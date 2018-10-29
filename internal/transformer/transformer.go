@@ -1,4 +1,4 @@
-package mapping
+package transformer
 
 import (
 	"github.com/mxmCherry/translit/internal/tree"
@@ -14,8 +14,8 @@ type Transformer struct {
 	}
 }
 
-// NewTransformer creates new Transformer for given mapping.
-func NewTransformer(mapping tree.Node) *Transformer {
+// New creates new Transformer for given mapping.
+func New(mapping tree.Node) *Transformer {
 	return &Transformer{
 		mapping: mapping,
 	}

@@ -1,4 +1,5 @@
-# translit [![GoDoc](https://godoc.org/github.com/mxmCherry/translit?status.svg)](https://godoc.org/github.com/mxmCherry/translit) [![Build Status](https://travis-ci.org/mxmCherry/translit.svg?branch=master)](https://travis-ci.org/mxmCherry/translit) [![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit)
+# translit [![GoDoc](https://godoc.org/github.com/mxmCherry/translit?status.svg)](https://godoc.org/github.com/mxmCherry/translit) [![Build Status](https://travis-ci.org/mxmCherry/translit.svg?branch=master)](https://travis-ci.org/mxmCherry/translit) [![codecov](https://codecov.io/gh/mxmCherry/translit/branch/master/graph/badge.svg)](https://codecov.io/gh/mxmCherry/translit)
+ [![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit)
 Go (Golang) utilities for (mostly Cyrillic) transliteration
 
 # TODO
@@ -27,29 +28,64 @@ Nice to have (though may be too hard / impossible to make an abstract implementa
 
 ## Usage
 
-TODO: copy some example here.
+```shell
+go get -u github.com/mxmCherry/translit
+```
+
+```go
+package translit_test
+
+import (
+	"fmt"
+
+	"github.com/mxmCherry/translit"
+	"golang.org/x/text/transform"
+)
+
+func ExampleNew() {
+	tr := translit.New(map[string]string{
+		"л":  "l",
+		"Л":  "L",
+		"ля": "lya",
+		"Ля": "Lya",
+	})
+
+	var s string
+
+	s, _, _ = transform.String(tr, "Л - л")
+	fmt.Println(s) // L - l
+
+	s, _, _ = transform.String(tr, "Ля-лЯ-ля")
+	fmt.Println(s) // Lya-lЯ-lya
+
+	// Output:
+	// L - l
+	// Lya-lЯ-lya
+}
+```
 
 ## Guidelines
 
-TODO: this is subject to change!
+TODO: still subject to change!
 
 This package aims to provide default transliterations for some languages.
 
-Subpackage names for these transliterations should be named as [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language code + standard name, for example: `uknational`, where `uk` is the language code and `national` is a standard, defined by national government.
+Subpackage names for these transliterations should be made of [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language code and the standard name, for example: `uknational`, where `uk` is the language code and `national` is a standard, defined by national government.
 
-One package per language/standard recommendation is aiming reduce memory footprint: pay with memory only for what you actually use.
+One subpackage per language/standard recommendation is given reduce memory footprint: pay (with memory) only for what you actually use.
 
-These packages should expose at least one `translit.Converter` (ideally - just one, again - for memory footprint). Functions are recommended to expose converters (to avoid accidental variable reassigning).
+These subpackages should expose at least one [transform.Transformer](https://godoc.org/golang.org/x/text/transform#Transformer) constructor, ideally - two (two-way transformers, like `ToLatin`/`FromLatin`).
 
 ```go
 package main
 
 import "github.com/mxmCherry/translit/uknational"
 
-var uk = uknational.Converter() // global one (package-local)
+var uk = uknational.ToLatin() // global one (package-local)
 
 func main() {
-	println(uk.Convert("Український трансліт"))
+	s, _ _ := transform.String(uk, "Український трансліт")
+	println(s) // Ukrainskyi translit
 }
 ```
 
@@ -58,6 +94,7 @@ func main() {
 - [editorconfig](https://editorconfig.org/) (recommended)
 - [gofmt](https://blog.golang.org/go-fmt-your-code) (MUST)
 - [goreportcard](https://goreportcard.com/report/github.com/mxmCherry/translit) (MUST)
+- [codecov](https://codecov.io/gh/mxmCherry/translit) (recommended)
 
 ## Motivation
 

@@ -4,22 +4,26 @@ import (
 	"fmt"
 
 	"github.com/mxmCherry/translit"
+	"golang.org/x/text/transform"
 )
 
-func ExampleConverter() {
+func ExampleNew() {
 	tr := translit.New(map[string]string{
-		"л":   "l",
-		"Л":   "L",
-		"лещ": "bream",
-		"Лещ": "Bream",
+		"л":  "l",
+		"Л":  "L",
+		"ля": "lya",
+		"Ля": "Lya",
 	})
 
-	fmt.Println(tr.Convert("Л - л"))                                // L - l
-	fmt.Println(tr.Convert("Лещ - лещ - лЕщ"))                      // Bream - bream - lЕщ
-	fmt.Println(tr.Convert("Остальной текст не трансЛитерируется")) // Остаlьной текст не трансLитерируется
+	var s string
+
+	s, _, _ = transform.String(tr, "Л - л")
+	fmt.Println(s) // L - l
+
+	s, _, _ = transform.String(tr, "Ля-лЯ-ля")
+	fmt.Println(s) // Lya-lЯ-lya
 
 	// Output:
 	// L - l
-	// Bream - bream - lЕщ
-	// Остаlьной текст не трансLитерируется
+	// Lya-lЯ-lya
 }
