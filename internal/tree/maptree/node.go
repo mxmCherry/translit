@@ -15,7 +15,7 @@ func (n *Node) Value() []byte {
 
 // LookupChild implements tree.Node.
 func (n *Node) LookupChild(b byte) tree.Node {
-	if c := n.Children[b]; c != nil {
+	if c, ok := n.Children[b]; ok {
 		return c
 	}
 	return nil // haha, golang quirks
