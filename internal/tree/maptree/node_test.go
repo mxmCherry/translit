@@ -54,7 +54,7 @@ var _ = Describe("Node", func() {
 		Expect(
 			(&Node{
 				Children: map[byte]*Node{
-					'a': &Node{},
+					'a': {},
 				},
 			}).HasChildren(),
 		).To(BeTrue())
