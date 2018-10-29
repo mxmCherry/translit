@@ -95,6 +95,7 @@ var _ = Describe("Transformer", func() {
 		},
 
 		Entry("!atEOF", "AC", false),
-		Entry("atEOF", "A", true),
+		Entry("atEOF, have match", "A", true),
+		Entry("atEOF, no match", "D", true),
 	)
 })
