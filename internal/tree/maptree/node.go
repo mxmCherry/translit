@@ -1,6 +1,6 @@
 package maptree
 
-import "github.com/mxmCherry/translit/internal/experimental/tree"
+import "github.com/mxmCherry/translit/internal/tree"
 
 // Node represents tree node with map lookup.
 type Node struct {
@@ -15,7 +15,10 @@ func (n *Node) Value() []byte {
 
 // LookupChild implements tree.Node.
 func (n *Node) LookupChild(b byte) tree.Node {
-	return n.Children[b]
+	if c := n.Children[b]; c != nil {
+		return c
+	}
+	return nil // haha, golang quirks
 }
 
 // HasChildren implements tree.Node.
