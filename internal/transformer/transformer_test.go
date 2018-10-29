@@ -27,7 +27,7 @@ var _ = Describe("Transformer", func() {
 	})
 
 	DescribeTable(
-		"Common examples",
+		"Examples",
 
 		func(input, expected string) {
 			actual, n, err := transform.String(subject, input)
@@ -53,5 +53,48 @@ var _ = Describe("Transformer", func() {
 		),
 	)
 
-	PIt("should have 100% test coverage!")
+	It("should request more src if there is longer potential match", func() {
+		var (
+			nDst, nSrc int
+			err        error
+		)
+
+		nDst, nSrc, err = subject.Transform(nil, []byte("A"), false)
+		Expect(err).To(MatchError(transform.ErrShortSrc))
+		Expect(nDst).To(BeZero())
+		Expect(nSrc).To(BeZero())
+
+		nDst, nSrc, err = subject.Transform(nil, []byte("AB"), false)
+		Expect(err).To(MatchError(transform.ErrShortSrc))
+		Expect(nDst).To(BeZero())
+		Expect(nSrc).To(BeZero())
+	})
+
+	DescribeTable(
+		"ErrShortSrc",
+
+		func(input string) {
+			nDst, nSrc, err := subject.Transform(nil, []byte("A"), false)
+			Expect(err).To(MatchError(transform.ErrShortSrc))
+			Expect(nDst).To(BeZero())
+			Expect(nSrc).To(BeZero())
+		},
+
+		Entry("already has match, but also has longer potential match", "A"),
+		Entry("no match", "AB"),
+	)
+
+	DescribeTable(
+		"ErrShortDst",
+
+		func(input string, atEOF bool) {
+			nDst, nSrc, err := subject.Transform(nil, []byte(input), atEOF)
+			Expect(err).To(MatchError(transform.ErrShortDst))
+			Expect(nDst).To(BeZero())
+			Expect(nSrc).To(BeZero())
+		},
+
+		Entry("!atEOF", "AC", false),
+		Entry("atEOF", "A", true),
+	)
 })
