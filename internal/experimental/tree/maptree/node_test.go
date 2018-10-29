@@ -12,40 +12,30 @@ import (
 var _ = Describe("Node", func() {
 	var _ tree.Node = (*Node)(nil)
 
-	It("should insert", func() {
-		subject := new(Node)
-
-		subject.Insert([]byte("a"), []byte("{a}"))
-		subject.Insert([]byte("ab"), []byte("{ab}"))
-		subject.Insert([]byte("bc"), []byte("{bc}"))
-		subject.Insert([]byte("cd"), []byte("{cd}"))
-		subject.Insert([]byte("c"), []byte("{c}"))
-
-		Expect(subject).To(Equal(
-			&Node{
-				Value: nil,
-				Children: map[byte]*Node{
-					'a': {
-						Value: []byte("{a}"),
-						Children: map[byte]*Node{
-							'b': {Value: []byte("{ab}"), Children: nil},
-						},
-					},
-					'b': {
-						Value: nil,
-						Children: map[byte]*Node{
-							'c': {Value: []byte("{bc}"), Children: nil},
-						},
-					},
-					'c': {
-						Value: []byte("{c}"),
-						Children: map[byte]*Node{
-							'd': {Value: []byte("{cd}"), Children: nil},
-						},
-					},
-				},
+	It("should lookup child", func() {
+		childA := &Node{
+			Val: []byte("{a}"),
+		}
+		childB := &Node{
+			Val: []byte("{b}"),
+		}
+		subject := &Node{
+			Children: map[byte]*Node{
+				'a': childA,
+				'b': childB,
 			},
-		))
+		}
+		Expect(subject.LookupChild('a')).To(Equal(childA))
+		Expect(subject.LookupChild('b')).To(Equal(childB))
+		Expect(subject.LookupChild('x')).To(BeNil())
+	})
+
+	It("should return value", func() {
+		Expect(
+			(&Node{
+				Val: []byte("{a}"),
+			}).Value(),
+		).To(Equal([]byte("{a}")))
 	})
 
 	It("should tell if it has children", func() {
@@ -54,11 +44,13 @@ var _ = Describe("Node", func() {
 				Children: nil,
 			}).HasChildren(),
 		).To(BeFalse())
+
 		Expect(
 			(&Node{
 				Children: map[byte]*Node{},
 			}).HasChildren(),
 		).To(BeFalse())
+
 		Expect(
 			(&Node{
 				Children: map[byte]*Node{
@@ -68,21 +60,28 @@ var _ = Describe("Node", func() {
 		).To(BeTrue())
 	})
 
-	It("should lookup child", func() {
-		childA := &Node{
-			Value: []byte("{a}"),
-		}
-		childB := &Node{
-			Value: []byte("{b}"),
-		}
-		subject := &Node{
+	It("should set value", func() {
+		subject := &Node{}
+		subject.SetValue([]byte("{a}"))
+		Expect(subject.Val).To(Equal([]byte("{a}")))
+	})
+
+	It("should ensure child", func() {
+		subject := &Node{}
+
+		childA := subject.EnsureChild('a')
+		childB := subject.EnsureChild('b')
+
+		childA.SetValue([]byte("{a}"))
+		childB.SetValue([]byte("{b}"))
+
+		Expect(subject.EnsureChild('a')).To(Equal(childA))
+
+		Expect(subject).To(Equal(&Node{
 			Children: map[byte]*Node{
-				'a': childA,
-				'b': childB,
+				'a': {Val: []byte("{a}")},
+				'b': {Val: []byte("{b}")},
 			},
-		}
-		Expect(subject.Child('a')).To(Equal(childA))
-		Expect(subject.Child('b')).To(Equal(childB))
-		Expect(subject.Child('x')).To(BeNil())
+		}))
 	})
 })
