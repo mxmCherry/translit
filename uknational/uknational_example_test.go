@@ -11,9 +11,10 @@ import (
 func ExampleToLatin() {
 	uk := uknational.ToLatin()
 
-	s, _, _ := transform.String(uk, "Український трансліт")
-	fmt.Println(s) // Ukrainskyi translit
+	// https://uk.wikipedia.org/wiki/Панграма
+	s, _, _ := transform.String(uk, "Десь чув, що той фраєр привіз їхньому царю грильяж та класну шубу з пір'я ґави.")
+	fmt.Println(s)
 
 	// Output:
-	// Ukrainskyi translit
+	// Des chuv, shcho toi fraier pryviz yikhnomu tsariu hryliazh ta klasnu shubu z piria gavy.
 }

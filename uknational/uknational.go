@@ -1,12 +1,10 @@
 // Package uknational provides Ukrainian romanization transform.Transformer,
-// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
-//
-// TODO: letter position handling - this is impossible to do 100% correctly with current implementation.
+// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-п
 package uknational
 
 /*
 
-http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
+http://zakon.rada.gov.ua/laws/show/55-2010-п
 
 ------------------------------------------------------------------
 | Український | Латиниця |  Позиція у |    Приклади написання    |

@@ -2,132 +2,160 @@ package uknational
 
 import (
 	"github.com/mxmCherry/translit"
+
 	"golang.org/x/text/transform"
 )
 
 // ToLatin returns Ukrainian romanization transform.Transformer,
-// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
-//
-// TODO: letter position handling - this is impossible to do 100% correctly with current implementation.
+// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-п
 func ToLatin() transform.Transformer {
 	return toLatin
 }
 
-var toLatin = translit.New(
-	map[string]string{
-		"А": "A",
-		"а": "a",
+var toLatin transform.Transformer
 
-		"Б": "B",
-		"б": "b",
+var toLatinMap = map[string]string{
+	"А": "A",
+	"а": "a",
 
-		"В": "V",
-		"в": "v",
+	"Б": "B",
+	"б": "b",
 
-		"Г": "H",
-		"г": "h",
+	"В": "V",
+	"в": "v",
 
-		"Ґ": "G",
-		"ґ": "g",
+	"Г": "H",
+	"г": "h",
 
-		"Д": "D",
-		"д": "d",
+	"Ґ": "G",
+	"ґ": "g",
 
-		"Е": "E",
-		"е": "e",
+	"Д": "D",
+	"д": "d",
 
-		// poor man's position handling:
-		"Є": "Ye", // на початку слова
-		"є": "ie", // в інших позиціях
+	"Е": "E",
+	"е": "e",
 
-		"Ж": "Zh",
-		"ж": "zh",
+	// на початку слова; в інших позиціях - див. `func init()`:
+	"Є": "Ye",
+	"є": "ye",
 
-		"З": "Z",
-		"з": "z",
+	"Ж": "Zh",
+	"ж": "zh",
 
-		"И": "Y",
-		"и": "y",
+	"З": "Z",
+	"з": "z",
 
-		"І": "I",
-		"і": "i",
+	"И": "Y",
+	"и": "y",
 
-		// poor man's position handling:
-		"Ї": "Yi", // на початку слова
-		"ї": "i",  // в інших позиціях
+	"І": "I",
+	"і": "i",
 
-		// poor man's position handling:
-		"Й": "Y", // на початку слова
-		"й": "i", // в інших позиціях
+	// на початку слова; в інших позиціях - див. `func init()`:
+	"Ї": "Yi",
+	"ї": "yi",
 
-		"К": "K",
-		"к": "k",
+	// на початку слова; в інших позиціях - див. `func init()`:
+	"Й": "Y",
+	"й": "y",
 
-		"Л": "L",
-		"л": "l",
+	"К": "K",
+	"к": "k",
 
-		"М": "M",
-		"м": "m",
+	"Л": "L",
+	"л": "l",
 
-		"Н": "N",
-		"н": "n",
+	"М": "M",
+	"м": "m",
 
-		"О": "O",
-		"о": "o",
+	"Н": "N",
+	"н": "n",
 
-		"П": "P",
-		"п": "p",
+	"О": "O",
+	"о": "o",
 
-		"Р": "R",
-		"р": "r",
+	"П": "P",
+	"п": "p",
 
-		"С": "S",
-		"с": "s",
+	"Р": "R",
+	"р": "r",
 
-		"Т": "T",
-		"т": "t",
+	"С": "S",
+	"с": "s",
 
-		"У": "U",
-		"у": "u",
+	"Т": "T",
+	"т": "t",
 
-		"Ф": "F",
-		"ф": "f",
+	"У": "U",
+	"у": "u",
 
-		"Х": "Kh",
-		"х": "kh",
+	"Ф": "F",
+	"ф": "f",
 
-		"Ц": "Ts",
-		"ц": "ts",
+	"Х": "Kh",
+	"х": "kh",
 
-		"Ч": "Ch",
-		"ч": "ch",
+	"Ц": "Ts",
+	"ц": "ts",
 
-		"Ш": "Sh",
-		"ш": "sh",
+	"Ч": "Ch",
+	"ч": "ch",
 
-		"Щ": "Shch",
-		"щ": "shch",
+	"Ш": "Sh",
+	"ш": "sh",
 
-		// poor man's position handling:
-		"Ю": "Yu", // на початку слова
-		"ю": "iu", // в інших позиціях
+	"Щ": "Shch",
+	"щ": "shch",
 
-		// poor man's position handling:
-		"Я": "Ya", // на початку слова
-		"я": "ia", // в інших позиціях
+	// на початку слова; в інших позиціях - див. `func init()`:
+	"Ю": "Yu",
+	"ю": "yu",
 
-		// 1. Буквосполучення "зг" відтворюється латиницею як "zgh"
-		// (наприклад,  Згорани - Zghorany, Розгон - Rozghon) на
-		// відміну від "zh" - відповідника української літери
-		// "ж".
-		"Зг": "Zgh",
-		"ЗГ": "ZGH", // all-upper-case handling
-		"зг": "zgh",
+	// на початку слова; в інших позиціях - див. `func init()`:
+	"Я": "Ya",
+	"я": "ya",
 
-		// 2. М'який знак і апостроф латиницею не відтворюються.
-		"ь": "",
-		"Ь": "",
-		"’": "", // https://uk.wikipedia.org/wiki/%D0%90%D0%BF%D0%BE%D1%81%D1%82%D1%80%D0%BE%D1%84
-		"'": "", // https://uk.wikipedia.org/wiki/%D0%90%D0%BF%D0%BE%D1%81%D1%82%D1%80%D0%BE%D1%84
-	},
-)
+	// 1. Буквосполучення "зг" відтворюється латиницею як "zgh"
+	// (наприклад,  Згорани - Zghorany, Розгон - Rozghon) на
+	// відміну від "zh" - відповідника української літери
+	// "ж".
+	"Зг": "Zgh", // title-case handling
+	"ЗГ": "ZGH", // all-upper-case handling
+	"зг": "zgh",
+
+	// 2. М'який знак і апостроф латиницею не відтворюються.
+	"ь": "",
+	"Ь": "",
+	"’": "", // https://uk.wikipedia.org/wiki/Апостроф
+	"'": "", // https://uk.wikipedia.org/wiki/Апостроф
+}
+
+func init() {
+	notBeginningOfWordTransliterations := map[string]string{
+		"є": "ie",
+		"ї": "i",
+		"й": "i",
+		"ю": "iu",
+		"я": "ia",
+	}
+
+	// handling of special cases, when letter may be transliterated differently
+	// depending on position in word (beginning / other positions);
+	// brutal (memory-intensive, but not as much to bother), but does the trick:
+	for _, a := range keys(toLatinMap) {
+		for s, tr := range notBeginningOfWordTransliterations {
+			toLatinMap[a+s] = toLatinMap[a] + tr
+		}
+	}
+
+	toLatin = translit.New(toLatinMap)
+}
+
+func keys(m map[string]string) []string {
+	kk := make([]string, 0, len(m))
+	for k := range m {
+		kk = append(kk, k)
+	}
+	return kk
+}
