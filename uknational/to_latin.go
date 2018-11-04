@@ -8,6 +8,9 @@ import (
 
 // ToLatin returns Ukrainian romanization transform.Transformer,
 // as defined in http://zakon.rada.gov.ua/laws/show/55-2010-п
+//
+// CAVEAT/TODO: It is recommended that this transformer gets either all-lower-cased or properly Title-cased Ukrainian text.
+// It may produce weird results for ALL-UPPER-CASE text, so, ideally, lowercase input and uppercase output for such payloads.
 func ToLatin() transform.Transformer {
 	return toLatin
 }
