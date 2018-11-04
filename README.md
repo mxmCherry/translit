@@ -5,14 +5,12 @@ Go (Golang) utilities for (mostly Cyrillic) transliteration
 
 For v1:
 
-- solve naming: probably, better not `uknational.Converter()`, but `uknational.Romanizer()` or so (just in case there will be latin-to-cyrillic converter at some point?)
 - fill all the TODOs in README
 - add Russian transliteration
 
 Nice to have (though may be too hard / impossible to make an abstract implementation):
 
-- letter position handling for (at least) `uknational`: it has custom transliteration rules for first letter, like `я`: `ya` (first) or `ia` (not first) - may become a part of `internal/lookup.Lookup.Lookup(substr, posInWord)`; UPD: may be solved by having rules for each rule like `ая`, `бя`, `вя` etc - brutal, mem-intensive, but should work
-- nicer case-handling (like "UPPER" and "Title" cased transliterations - requires lookahead, check [dchest/translit.go](https://github.com/dchest/translit.go))
+- nicer case-handling (like "UPPER" and "Title" cased transliterations) - may be solved with mem-intensive rules
 
 ## Features
 
