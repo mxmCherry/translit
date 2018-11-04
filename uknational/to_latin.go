@@ -14,144 +14,147 @@ func ToLatin() transform.Transformer {
 	return toLatin
 }
 
-var toLatin transform.Transformer
+var toLatin = translit.New(makeToLatinRules())
 
-var toLatinMap = map[string]string{
-	"А": "A",
-	"а": "a",
+func makeToLatinRules() map[string]string {
+	var (
+		rules = map[string]string{
+			"А": "A",
+			"а": "a",
 
-	"Б": "B",
-	"б": "b",
+			"Б": "B",
+			"б": "b",
 
-	"В": "V",
-	"в": "v",
+			"В": "V",
+			"в": "v",
 
-	"Г": "H",
-	"г": "h",
+			"Г": "H",
+			"г": "h",
 
-	"Ґ": "G",
-	"ґ": "g",
+			"Ґ": "G",
+			"ґ": "g",
 
-	"Д": "D",
-	"д": "d",
+			"Д": "D",
+			"д": "d",
 
-	"Е": "E",
-	"е": "e",
+			"Е": "E",
+			"е": "e",
 
-	// на початку слова; в інших позиціях - див. `func init()`:
-	"Є": "Ye",
-	"є": "ye",
+			// на початку слова; в інших позиціях - див. `func init()`:
+			"Є": "Ye",
+			"є": "ye",
 
-	"Ж": "Zh",
-	"ж": "zh",
+			"Ж": "Zh",
+			"ж": "zh",
 
-	"З": "Z",
-	"з": "z",
+			"З": "Z",
+			"з": "z",
 
-	"И": "Y",
-	"и": "y",
+			"И": "Y",
+			"и": "y",
 
-	"І": "I",
-	"і": "i",
+			"І": "I",
+			"і": "i",
 
-	// на початку слова; в інших позиціях - див. `func init()`:
-	"Ї": "Yi",
-	"ї": "yi",
+			// на початку слова; в інших позиціях - див. `func init()`:
+			"Ї": "Yi",
+			"ї": "yi",
 
-	// на початку слова; в інших позиціях - див. `func init()`:
-	"Й": "Y",
-	"й": "y",
+			// на початку слова; в інших позиціях - див. `func init()`:
+			"Й": "Y",
+			"й": "y",
 
-	"К": "K",
-	"к": "k",
+			"К": "K",
+			"к": "k",
 
-	"Л": "L",
-	"л": "l",
+			"Л": "L",
+			"л": "l",
 
-	"М": "M",
-	"м": "m",
+			"М": "M",
+			"м": "m",
 
-	"Н": "N",
-	"н": "n",
+			"Н": "N",
+			"н": "n",
 
-	"О": "O",
-	"о": "o",
+			"О": "O",
+			"о": "o",
 
-	"П": "P",
-	"п": "p",
+			"П": "P",
+			"п": "p",
 
-	"Р": "R",
-	"р": "r",
+			"Р": "R",
+			"р": "r",
 
-	"С": "S",
-	"с": "s",
+			"С": "S",
+			"с": "s",
 
-	"Т": "T",
-	"т": "t",
+			"Т": "T",
+			"т": "t",
 
-	"У": "U",
-	"у": "u",
+			"У": "U",
+			"у": "u",
 
-	"Ф": "F",
-	"ф": "f",
+			"Ф": "F",
+			"ф": "f",
 
-	"Х": "Kh",
-	"х": "kh",
+			"Х": "Kh",
+			"х": "kh",
 
-	"Ц": "Ts",
-	"ц": "ts",
+			"Ц": "Ts",
+			"ц": "ts",
 
-	"Ч": "Ch",
-	"ч": "ch",
+			"Ч": "Ch",
+			"ч": "ch",
 
-	"Ш": "Sh",
-	"ш": "sh",
+			"Ш": "Sh",
+			"ш": "sh",
 
-	"Щ": "Shch",
-	"щ": "shch",
+			"Щ": "Shch",
+			"щ": "shch",
 
-	// на початку слова; в інших позиціях - див. `func init()`:
-	"Ю": "Yu",
-	"ю": "yu",
+			// на початку слова; в інших позиціях - див. `func init()`:
+			"Ю": "Yu",
+			"ю": "yu",
 
-	// на початку слова; в інших позиціях - див. `func init()`:
-	"Я": "Ya",
-	"я": "ya",
+			// на початку слова; в інших позиціях - див. `func init()`:
+			"Я": "Ya",
+			"я": "ya",
 
-	// 1. Буквосполучення "зг" відтворюється латиницею як "zgh"
-	// (наприклад,  Згорани - Zghorany, Розгон - Rozghon) на
-	// відміну від "zh" - відповідника української літери
-	// "ж".
-	"Зг": "Zgh", // title-case handling
-	"ЗГ": "ZGH", // all-upper-case handling
-	"зг": "zgh",
+			// 1. Буквосполучення "зг" відтворюється латиницею як "zgh"
+			// (наприклад,  Згорани - Zghorany, Розгон - Rozghon) на
+			// відміну від "zh" - відповідника української літери
+			// "ж".
+			"Зг": "Zgh", // title-case handling
+			"ЗГ": "ZGH", // all-upper-case handling
+			"зг": "zgh",
 
-	// 2. М'який знак і апостроф латиницею не відтворюються.
-	"ь": "",
-	"Ь": "",
-	"’": "", // https://uk.wikipedia.org/wiki/Апостроф
-	"'": "", // https://uk.wikipedia.org/wiki/Апостроф
-}
+			// 2. М'який знак і апостроф латиницею не відтворюються.
+			"ь": "",
+			"Ь": "",
+			"’": "", // https://uk.wikipedia.org/wiki/Апостроф
+			"'": "", // https://uk.wikipedia.org/wiki/Апостроф
+		}
 
-func init() {
-	notBeginningOfWordTransliterations := map[string]string{
-		"є": "ie",
-		"ї": "i",
-		"й": "i",
-		"ю": "iu",
-		"я": "ia",
-	}
+		// not-beginning-of-word rules:
+		infixRules = map[string]string{
+			"є": "ie",
+			"ї": "i",
+			"й": "i",
+			"ю": "iu",
+			"я": "ia",
+		}
+	)
 
 	// handling of special cases, when letter may be transliterated differently
 	// depending on position in word (beginning / other positions);
 	// brutal (memory-intensive, but not as much to bother), but does the trick:
-	for _, a := range keys(toLatinMap) {
-		for s, tr := range notBeginningOfWordTransliterations {
-			toLatinMap[a+s] = toLatinMap[a] + tr
+	for _, a := range keys(rules) {
+		for s, tr := range infixRules {
+			rules[a+s] = rules[a] + tr
 		}
 	}
 
-	toLatin = translit.New(toLatinMap)
+	return rules
 }
 
 func keys(m map[string]string) []string {
