@@ -2,7 +2,6 @@ package uknational
 
 import (
 	"github.com/mxmCherry/translit"
-
 	"golang.org/x/text/transform"
 )
 

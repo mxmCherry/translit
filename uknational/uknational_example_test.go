@@ -3,9 +3,8 @@ package uknational_test
 import (
 	"fmt"
 
-	"golang.org/x/text/transform"
-
 	"github.com/mxmCherry/translit/uknational"
+	"golang.org/x/text/transform"
 )
 
 func ExampleToLatin() {
