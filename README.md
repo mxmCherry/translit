@@ -1,17 +1,6 @@
 # translit [![GoDoc](https://godoc.org/github.com/mxmCherry/translit?status.svg)](https://godoc.org/github.com/mxmCherry/translit) [![Build Status](https://travis-ci.org/mxmCherry/translit.svg?branch=master)](https://travis-ci.org/mxmCherry/translit) [![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit) [![codecov](https://codecov.io/gh/mxmCherry/translit/branch/master/graph/badge.svg)](https://codecov.io/gh/mxmCherry/translit)
 Go (Golang) utilities for (mostly Cyrillic) transliteration
 
-# TODO
-
-For v1:
-
-- fill all the TODOs in README
-- add Russian transliteration
-
-Nice to have (though may be too hard / impossible to make an abstract implementation):
-
-- nicer case-handling (like "UPPER" and "Title" cased transliterations) - may be solved with mem-intensive rules
-
 ## Features
 
 - simple, but flexible configuration - `translit.New` accepts string-to-string transliteration rule map, so it should be really easy to implement/add custom transliterations
