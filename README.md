@@ -1,5 +1,17 @@
 # translit [![GoDoc](https://godoc.org/github.com/mxmCherry/translit?status.svg)](https://godoc.org/github.com/mxmCherry/translit) [![Build Status](https://travis-ci.org/mxmCherry/translit.svg?branch=master)](https://travis-ci.org/mxmCherry/translit) [![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit) [![codecov](https://codecov.io/gh/mxmCherry/translit/branch/master/graph/badge.svg)](https://codecov.io/gh/mxmCherry/translit)
-Go (Golang) utilities for (mostly Cyrillic) transliteration
+
+Go (Golang) utilities for (mostly Cyrillic) transliteration.
+
+PROJECT STATE: pre-v1 grooming (mostly README).
+
+This project aims to provide:
+
+- easy-to-configure transliteration [golang.org/x/text/transform.Transformer](https://godoc.org/golang.org/x/text/transform#Transformer)
+- language-specific transliterations (only Ukrainian/National and Russian/ICAO so far, PRs/issues are welcome)
+
+This project is intended to be used with [golang.org/x/text/transform](https://godoc.org/golang.org/x/text/transform) - really well-thought-out/convenient base for streaming text transforming (at least, it abstracts all the tricky buffering).
+
+TODO: mention essentialkaos/translit here (should be faster than this lib)
 
 ## Features
 
