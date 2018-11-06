@@ -11,7 +11,7 @@ This project aims to provide:
 
 This project is intended to be used with [golang.org/x/text/transform](https://godoc.org/golang.org/x/text/transform) - really well-thought-out/convenient base for streaming text transforming (at least, it abstracts all the tricky buffering).
 
-TODO: mention essentialkaos/translit here (should be faster than this lib)
+If you a) don't need to build a custom transliterator b) are fine with custom license - take a look at [essentialkaos/translit](https://github.com/essentialkaos/translit) - it has plenty (like, really plenty!) of standards implemented for Cyrillic and should be very fast.
 
 ## Features
 
