@@ -15,6 +15,8 @@ If you a) don't need to build a custom transliterator b) are fine with custom li
 
 ## Features
 
+TODO: review/re-word
+
 - simple, but flexible configuration - `translit.New` accepts string-to-string transliteration rule map, so it should be really easy to implement/add custom transliterations
 - properly handles multi-char rules, would work for latin-to-cyrillic transliterations like `z` -> `з` and `zh` -> `ж` (and not `zh` -> `зх`)
 - expected decent performance - no regular expressions or anything like that (though that could actually be quite fast for transliteration use case)
@@ -22,9 +24,13 @@ If you a) don't need to build a custom transliterator b) are fine with custom li
 
 ## Problems
 
+TODO: better have advantages/disadvantages in Features section; the one, mentioned here, is pretty much solveable (with higher mem usage, but still solveable).
+
 - not flexible enough to differentiate transliteration rules for first/non-first word letter for now: for example, Ukrainain national transliteration standard differentiates `я` at the beginning of the word `ya` and `я` in the middle of the word `ia` (though this looks solveable, just a bit later; should be fine for common usage even with this "disadvantage")
 
 ## Usage
+
+TODO: split this section into few sub-sections: custom transliterator, language-specific transliterator (recommended approach); then add some examples for using it with x/text/transform itself - like, transform.Chain and reader/writer examples.
 
 ```shell
 go get -u github.com/mxmCherry/translit
@@ -64,13 +70,11 @@ func ExampleNew() {
 
 ## Guidelines
 
-TODO: still subject to change!
-
 This package aims to provide default transliterations for some languages.
 
 Subpackage names for these transliterations should be made of [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language code and the standard name, for example: `uknational`, where `uk` is the language code and `national` is a standard, defined by national government.
 
-One subpackage per language/standard recommendation is given reduce memory footprint: pay (with memory) only for what you actually use.
+One subpackage per language/standard approach is to reduce memory footprint: pay (with memory) only for what you actually use.
 
 These subpackages should expose at least one [transform.Transformer](https://godoc.org/golang.org/x/text/transform#Transformer) constructor, ideally - two (two-way transformers, like `ToLatin`/`FromLatin`).
 
@@ -82,8 +86,8 @@ import "github.com/mxmCherry/translit/uknational"
 var uk = uknational.ToLatin() // global one (package-local)
 
 func main() {
-	s, _ _ := transform.String(uk, "Український трансліт")
-	println(s) // Ukrainskyi translit
+	s, _ _ := transform.String(uk, "Український трансліт") // TODO: use pangram here
+	println(s) // Ukrainskyi translit // TODO: and here as well
 }
 ```
 
@@ -95,6 +99,8 @@ func main() {
 - [codecov](https://codecov.io/gh/mxmCherry/translit) (recommended)
 
 ## Motivation
+
+TODO: review/groom this a bit
 
 At the moment of writing this lib, there were 3 analogs:
 
