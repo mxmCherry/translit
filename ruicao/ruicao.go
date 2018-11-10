@@ -1,4 +1,4 @@
-// Package ruicao provides Russian romanization transform.Transformer, according to ICAO standard:
+// Package ruicao provides Russian romanization transliterator, according to ICAO standard
 //
 // Doc 9303: Machine Readable Travel Documents (https://www.icao.int/publications/pages/publication.aspx?docnum=9303)
 //

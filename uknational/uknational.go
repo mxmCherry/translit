@@ -1,4 +1,4 @@
-// Package uknational provides Ukrainian romanization transform.Transformer,
+// Package uknational provides Ukrainian romanization transliterator,
 // as defined in http://zakon.rada.gov.ua/laws/show/55-2010-п
 package uknational
 
