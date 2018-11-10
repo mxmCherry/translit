@@ -17,18 +17,18 @@ type Factory interface {
 }
 
 type factory struct {
-	mapping tree.Node
+	rules tree.Node
 }
 
 // Map pre-compiles string-to-string transliteration rule map into transformer factory.
-func Map(mapping map[string]string) Factory {
-	m := new(maptree.Node)
-	tree.Populate(m, mapping)
+func Map(rules map[string]string) Factory {
+	r := new(maptree.Node)
+	tree.Populate(r, rules)
 	return &factory{
-		mapping: m,
+		rules: r,
 	}
 }
 
 func (f *factory) Transformer() transform.Transformer {
-	return transformer.New(f.mapping)
+	return transformer.New(f.rules)
 }
