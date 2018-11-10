@@ -1,5 +1,5 @@
 // Package uknational provides Ukrainian romanization transliterator,
-// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-п
+// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
 package uknational
 
 /*

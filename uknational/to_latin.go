@@ -5,7 +5,7 @@ import (
 )
 
 // ToLatin returns Ukrainian romanization transliteration transformer factory,
-// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-п
+// as defined in http://zakon.rada.gov.ua/laws/show/55-2010-%D0%BF
 //
 // CAVEAT/TODO: It is recommended that this transformer gets either all-lower-cased or properly Title-cased Ukrainian text.
 // It may produce weird results for ALL-UPPER-CASE text, so, ideally, lowercase input and uppercase output for such payloads.
