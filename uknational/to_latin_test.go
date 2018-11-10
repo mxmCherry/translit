@@ -13,7 +13,7 @@ var _ = DescribeTable(
 	"ToLatin",
 
 	func(input, expected string) {
-		actual, n, err := transform.String(ToLatin(), input)
+		actual, n, err := transform.String(ToLatin().Transformer(), input)
 		Expect(err).NotTo(HaveOccurred())
 		Expect(actual).To(Equal(expected))
 		Expect(n).To(Equal(len(input)))

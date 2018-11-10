@@ -7,20 +7,22 @@ import (
 	"golang.org/x/text/transform"
 )
 
-func ExampleNew() {
-	tr := translit.New(map[string]string{
-		"л":  "l",
-		"Л":  "L",
-		"ля": "lya",
-		"Ля": "Lya",
-	})
+func ExampleMap() {
+	custom := translit.Map(
+		map[string]string{
+			"л":  "l",
+			"Л":  "L",
+			"ля": "lya",
+			"Ля": "Lya",
+		},
+	)
 
 	var s string
 
-	s, _, _ = transform.String(tr, "Л - л")
+	s, _, _ = transform.String(custom.Transformer(), "Л - л")
 	fmt.Println(s) // L - l
 
-	s, _, _ = transform.String(tr, "Ля-лЯ-ля")
+	s, _, _ = transform.String(custom.Transformer(), "Ля-лЯ-ля")
 	fmt.Println(s) // Lya-lЯ-lya
 
 	// Output:

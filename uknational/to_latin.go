@@ -2,19 +2,18 @@ package uknational
 
 import (
 	"github.com/mxmCherry/translit"
-	"golang.org/x/text/transform"
 )
 
-// ToLatin returns Ukrainian romanization transform.Transformer,
+// ToLatin returns Ukrainian romanization transliteration transformer factory,
 // as defined in http://zakon.rada.gov.ua/laws/show/55-2010-п
 //
 // CAVEAT/TODO: It is recommended that this transformer gets either all-lower-cased or properly Title-cased Ukrainian text.
 // It may produce weird results for ALL-UPPER-CASE text, so, ideally, lowercase input and uppercase output for such payloads.
-func ToLatin() transform.Transformer {
+func ToLatin() translit.Factory {
 	return toLatin
 }
 
-var toLatin = translit.New(makeToLatinRules())
+var toLatin = translit.Map(makeToLatinRules())
 
 func makeToLatinRules() map[string]string {
 	var (

@@ -2,7 +2,6 @@ package ruicao
 
 import (
 	"github.com/mxmCherry/translit"
-	"golang.org/x/text/transform"
 )
 
 // ToLatin returns Russian romanization transform.Transformer, according to ICAO standard:
@@ -14,11 +13,11 @@ import (
 // Section 6. TRANSLITERATIONS RECOMMENDED FOR USE BY STATES
 //
 // Table A. Transliteration of Multinational Latin-based Characters
-func ToLatin() transform.Transformer {
+func ToLatin() translit.Factory {
 	return toLatin
 }
 
-var toLatin = translit.New(
+var toLatin = translit.Map(
 	// https://en.wikipedia.org/wiki/Romanization_of_Russian#Transliteration_table
 	map[string]string{
 		"А": "A",

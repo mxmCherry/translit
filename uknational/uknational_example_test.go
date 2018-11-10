@@ -11,7 +11,7 @@ func ExampleToLatin() {
 	uk := uknational.ToLatin()
 
 	// https://uk.wikipedia.org/wiki/Панграма
-	s, _, _ := transform.String(uk, "Десь чув, що той фраєр привіз їхньому царю грильяж та класну шубу з пір'я ґави.")
+	s, _, _ := transform.String(uk.Transformer(), "Десь чув, що той фраєр привіз їхньому царю грильяж та класну шубу з пір'я ґави.")
 	fmt.Println(s)
 
 	// Output:

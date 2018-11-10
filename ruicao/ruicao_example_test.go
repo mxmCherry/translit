@@ -11,7 +11,7 @@ func ExampleToLatin() {
 	ru := ruicao.ToLatin()
 
 	// https://ru.wikipedia.org/wiki/Панграмма
-	s, _, _ := transform.String(ru, "Съешь же ещё этих мягких французских булок да выпей чаю.")
+	s, _, _ := transform.String(ru.Transformer(), "Съешь же ещё этих мягких французских булок да выпей чаю.")
 	fmt.Println(s)
 
 	// Output:
