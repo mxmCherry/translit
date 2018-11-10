@@ -119,7 +119,7 @@ These subpackages should expose at least one `translit.Factory` constructor, ide
 
 TODO: review/groom this a bit
 
-At the moment of writing this lib, there were 3 analogs:
+At the moment of writing this lib, there were [3 analogs](https://golanglibs.com/search?q=translit):
 
 [gen1us2k/go-translit](github.com/gen1us2k/go-translit) at [46f1a0b](https://github.com/gen1us2k/go-translit/commit/46f1a0be552caadbdbc19cf9a6705c4402b7ab47):
 
