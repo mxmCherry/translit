@@ -8,7 +8,7 @@ import (
 )
 
 func ExampleToLatin() {
-	uk := uknational.ToLatin()
+	uk := uknational.ToLatin() // this is recommended to be a global variable in your own package
 
 	// https://uk.wikipedia.org/wiki/Панграма
 	s, _, _ := transform.String(uk.Transformer(), "Десь чув, що той фраєр привіз їхньому царю грильяж та класну шубу з пір'я ґави.")

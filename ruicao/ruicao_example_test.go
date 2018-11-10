@@ -8,7 +8,7 @@ import (
 )
 
 func ExampleToLatin() {
-	ru := ruicao.ToLatin()
+	ru := ruicao.ToLatin() // this is recommended to be a global variable in your own package
 
 	// https://ru.wikipedia.org/wiki/Панграмма
 	s, _, _ := transform.String(ru.Transformer(), "Съешь же ещё этих мягких французских булок да выпей чаю.")
