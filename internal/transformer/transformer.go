@@ -1,3 +1,4 @@
+// Package transformer implements a transliteration golang.org/x/text/transform.Transformer.
 package transformer
 
 import (
@@ -5,7 +6,9 @@ import (
 	"golang.org/x/text/transform"
 )
 
-// Transformer is a mapping transform.Transformer.
+// Transformer implements transform.Transformer.
+//
+// It is stateful and not thread-safe.
 type Transformer struct {
 	mapping tree.Node
 	state   struct {
@@ -15,6 +18,8 @@ type Transformer struct {
 }
 
 // New creates new Transformer for given mapping.
+//
+// Accepted mapping is a tree.Node, which is expected to return nil Value() if there's no match.
 func New(mapping tree.Node) *Transformer {
 	return &Transformer{
 		mapping: mapping,

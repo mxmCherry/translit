@@ -1,3 +1,5 @@
+// Package maptree provides a tree implementation
+// with map-based children lookup.
 package maptree
 
 import "github.com/mxmCherry/translit/internal/tree"
