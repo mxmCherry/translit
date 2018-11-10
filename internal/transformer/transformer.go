@@ -17,9 +17,9 @@ type Transformer struct {
 	}
 }
 
-// New creates new Transformer for given rules.
+// New creates new Transformer for given set of rules.
 //
-// Accepted rules is a tree.Node, which is expected to return nil Value() if there's no match.
+// Accepted rules are a tree.Node, which is expected to return nil Value() if there's no match.
 func New(rules tree.Node) *Transformer {
 	return &Transformer{
 		rules: rules,
