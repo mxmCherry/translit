@@ -43,7 +43,7 @@ import (
 	"golang.org/x/text/transform"
 )
 
-func ExampleCustom() {
+func ExampleMap() {
 	// pre-compile a transformer factory from rule map;
 	// this is recommended to be a global variable in your own package:
 	custom := translit.Map(
