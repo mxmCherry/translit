@@ -10,19 +10,19 @@ import (
 //
 // It is stateful and not thread-safe.
 type Transformer struct {
-	mapping tree.Node
-	state   struct {
+	rules tree.Node
+	state struct {
 		node tree.Node
 		pos  int
 	}
 }
 
-// New creates new Transformer for given mapping.
+// New creates new Transformer for given rules.
 //
-// Accepted mapping is a tree.Node, which is expected to return nil Value() if there's no match.
-func New(mapping tree.Node) *Transformer {
+// Accepted rules is a tree.Node, which is expected to return nil Value() if there's no match.
+func New(rules tree.Node) *Transformer {
 	return &Transformer{
-		mapping: mapping,
+		rules: rules,
 	}
 }
 
@@ -39,7 +39,7 @@ func (t *Transformer) Transform(dst, src []byte, atEOF bool) (int, int, error) {
 	}
 
 	if t.state.node == nil {
-		t.state.node = t.mapping
+		t.state.node = t.rules
 		t.state.pos = 0
 	}
 
