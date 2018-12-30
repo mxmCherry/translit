@@ -2,8 +2,6 @@
 
 Go (Golang) utilities for (mostly Cyrillic) transliteration.
 
-PROJECT STATE: pre-v1 grooming (mostly README).
-
 This project aims to provide:
 
 - easy-to-configure transliteration [golang.org/x/text/transform.Transformer](https://godoc.org/golang.org/x/text/transform#Transformer)
