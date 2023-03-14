@@ -62,6 +62,7 @@ var _ = DescribeTable(
 	Entry("Лебедин", "Лебедин", "Lebedyn"),
 	Entry("Леонід", "Леонід", "Leonid"),
 	Entry("Миколаїв", "Миколаїв", "Mykolaiv"),
+	Entry("Міхєєв", "Міхєєв", "Mikhieiev"),
 	Entry("Маринич", "Маринич", "Marynych"),
 	Entry("Ніжин", "Ніжин", "Nizhyn"),
 	Entry("Наталія", "Наталія", "Nataliia"),
@@ -116,6 +117,7 @@ var _ = DescribeTable(
 	Entry("Є - на початку слова", "Єа", "Yea"),
 	Entry("є - на початку слова", "єа", "yea"),
 	Entry("є - всередині слова", "аєа", "aiea"),
+	Entry("єє - всередині слова", "аєєа", "aieiea"),
 	Entry("є - в кінці слова", "ає", "aie"),
 
 	// на початку слова: yi
