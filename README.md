@@ -1,13 +1,18 @@
-# translit [![GoDoc](https://godoc.org/github.com/mxmCherry/translit?status.svg)](https://godoc.org/github.com/mxmCherry/translit) [![Build Status](https://travis-ci.org/mxmCherry/translit.svg?branch=master)](https://travis-ci.org/mxmCherry/translit) [![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit) [![codecov](https://codecov.io/gh/mxmCherry/translit/branch/master/graph/badge.svg)](https://codecov.io/gh/mxmCherry/translit)
+# translit
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/mxmCherry/translit.svg)](https://pkg.go.dev/github.com/mxmCherry/translit)
+[![Go Test](https://github.com/mxmCherry/translit/actions/workflows/go.yml/badge.svg)](https://github.com/mxmCherry/translit/actions/workflows/go.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit)
+[![codecov](https://codecov.io/gh/mxmCherry/translit/branch/main/graph/badge.svg)](https://codecov.io/gh/mxmCherry/translit)
 
 Go (Golang) utilities for (mostly Cyrillic) transliteration.
 
 This project aims to provide:
 
-- easy-to-configure transliteration [golang.org/x/text/transform.Transformer](https://godoc.org/golang.org/x/text/transform#Transformer)
+- easy-to-configure transliteration [golang.org/x/text/transform.Transformer](https://pkg.go.dev/golang.org/x/text/transform#Transformer)
 - language-specific transliterations (only Ukrainian/National and Russian/ICAO for now, PRs/issues are welcome)
 
-This project is intended to be used with [golang.org/x/text/transform](https://godoc.org/golang.org/x/text/transform) - well-thought-out/convenient base for streaming text transforming.
+This project is intended to be used with [golang.org/x/text/transform](https://pkg.go.dev/golang.org/x/text/transform) - well-thought-out/convenient base for streaming text transforming.
 
 If you a) don't need to build a custom transliterator b) are fine with custom license - take a look at [essentialkaos/translit](https://github.com/essentialkaos/translit) - it is fast and has plenty of standards implemented for Cyrillic.
 
