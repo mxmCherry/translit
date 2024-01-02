@@ -3,7 +3,6 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/mxmCherry/translit.svg)](https://pkg.go.dev/github.com/mxmCherry/translit)
 [![Go Test](https://github.com/mxmCherry/translit/actions/workflows/go.yml/badge.svg)](https://github.com/mxmCherry/translit/actions/workflows/go.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mxmCherry/translit)](https://goreportcard.com/report/github.com/mxmCherry/translit)
-[![codecov](https://codecov.io/gh/mxmCherry/translit/branch/main/graph/badge.svg)](https://codecov.io/gh/mxmCherry/translit)
 
 Go (Golang) utilities for (mostly Cyrillic) transliteration.
 
@@ -116,4 +115,3 @@ These subpackages should expose at least one `translit.Factory` constructor, ide
 - [editorconfig](https://editorconfig.org/) (recommended)
 - [gofmt](https://blog.golang.org/go-fmt-your-code) (MUST)
 - [goreportcard](https://goreportcard.com/report/github.com/mxmCherry/translit) (MUST)
-- [codecov](https://codecov.io/gh/mxmCherry/translit) (recommended)
