@@ -136,11 +136,12 @@ func makeToLatinRules() map[string]string {
 
 		// not-beginning-of-word rules:
 		infixRules = map[string]string{
-			"є": "ie",
-			"ї": "i",
-			"й": "i",
-			"ю": "iu",
-			"я": "ia",
+			"є":  "ie",
+			"єє": "ieie",
+			"ї":  "i",
+			"й":  "i",
+			"ю":  "iu",
+			"я":  "ia",
 		}
 	)
 
