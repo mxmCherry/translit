@@ -5,7 +5,7 @@ import (
 
 	. "github.com/mxmCherry/translit/uknational"
 
-	. "github.com/onsi/ginkgo/extensions/table"
+	. "github.com/onsi/ginkgo/v2/extensions/table"
 	. "github.com/onsi/gomega"
 )
 
