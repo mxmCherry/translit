@@ -11,10 +11,6 @@ import (
 // It is stateful and not thread-safe.
 type Transformer struct {
 	rules tree.Node
-	state struct {
-		node tree.Node
-		pos  int
-	}
 }
 
 // New creates new Transformer for given set of rules.
@@ -28,42 +24,41 @@ func New(rules tree.Node) *Transformer {
 
 // Reset implements transform.Transformer.
 func (t *Transformer) Reset() {
-	t.state.node = nil
 }
 
 // Transform implements transform.Transformer.
 func (t *Transformer) Transform(dst, src []byte, atEOF bool) (int, int, error) {
+	if len(src) == 0 {
+		return 0, 0, nil
+	}
 	var match struct {
 		value []byte
 		pos   int
 	}
-
-	if t.state.node == nil {
-		t.state.node = t.rules
-		t.state.pos = 0
-	}
+	node := t.rules
+	pos := 0
 
 	for {
-		if t.state.pos >= len(src) {
+		if pos >= len(src) {
 			break
 		}
 
-		t.state.node = t.state.node.LookupChild(src[t.state.pos])
-		if t.state.node == nil {
+		node = node.LookupChild(src[pos])
+		if node == nil {
 			break
 		}
 
-		if v := t.state.node.Value(); v != nil {
+		if v := node.Value(); v != nil {
 			match.value = v
-			match.pos = t.state.pos
+			match.pos = pos
 		}
 
-		t.state.pos++
+		pos++
 	}
 
 	if !atEOF {
-		if t.state.node != nil {
-			if t.state.node.HasChildren() {
+		if node != nil {
+			if node.HasChildren() {
 				return 0, 0, transform.ErrShortSrc
 			}
 		}
@@ -73,14 +68,12 @@ func (t *Transformer) Transform(dst, src []byte, atEOF bool) (int, int, error) {
 		if len(dst) < len(match.value) {
 			return 0, 0, transform.ErrShortDst
 		}
-		t.state.node = nil
 		return copy(dst, match.value), match.pos + 1, nil
 	}
 
 	if len(dst) < 1 {
 		return 0, 0, transform.ErrShortDst
 	}
-	t.state.node = nil
 	dst[0] = src[0]
 	return 1, 1, nil
 }

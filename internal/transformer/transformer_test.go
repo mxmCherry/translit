@@ -69,6 +69,27 @@ var _ = Describe("Transformer", func() {
 		Expect(nSrc).To(BeZero())
 	})
 
+	It("should reconsider unconsumed source after ErrShortSrc", func() {
+		nDst, nSrc, err := subject.Transform(nil, []byte("A"), false)
+		Expect(err).To(MatchError(transform.ErrShortSrc))
+		Expect(nDst).To(BeZero())
+		Expect(nSrc).To(BeZero())
+
+		dst := make([]byte, len("{A}"))
+		nDst, nSrc, err = subject.Transform(dst, []byte("A"), true)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(nDst).To(Equal(len("{A}")))
+		Expect(nSrc).To(Equal(len("A")))
+		Expect(string(dst)).To(Equal("{A}"))
+	})
+
+	It("should accept an empty final source", func() {
+		nDst, nSrc, err := subject.Transform(nil, nil, true)
+		Expect(err).NotTo(HaveOccurred())
+		Expect(nDst).To(BeZero())
+		Expect(nSrc).To(BeZero())
+	})
+
 	DescribeTable(
 		"ErrShortSrc",
 
